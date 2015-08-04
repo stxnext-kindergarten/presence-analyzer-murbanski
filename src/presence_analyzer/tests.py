@@ -70,6 +70,7 @@ class PresenceAnalyzerViewsTestCase(unittest.TestCase):
         self.assertListEqual(filter(lambda d: d[1], data),
                              [[u'Tue', 30047], [u'Wed', 24465],
                               [u'Thu', 23705]])
+
         resp = self.client.get('api/v1/mean_time_weekday/9000')
         self.assertEqual(resp.status_code, 404)
 
@@ -85,7 +86,28 @@ class PresenceAnalyzerViewsTestCase(unittest.TestCase):
         self.assertListEqual(filter(lambda d: d[1], data),
                              [[u'Weekday', u'Presence (s)'], [u'Tue', 30047],
                               [u'Wed', 24465], [u'Thu', 23705]])
+
         resp = self.client.get('api/v1/presence_weekday/9000')
+        self.assertEqual(resp.status_code, 404)
+
+    def test_api_presence_start_end(self):
+        """
+        Test mean start-end listing.
+        """
+        resp = self.client.get('/api/v1/presence_start_end/10')
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.content_type, 'application/json')
+        data = json.loads(resp.data)
+        self.assertLessEqual(len(data), 7)
+        for row in data:
+            self.assertEqual(len(row), 3)
+            _, start, end = row
+            self.assertLessEqual(start, end)
+        self.assertListEqual(data, [[u'Tue', 34745, 64792],
+                                    [u'Wed', 33592, 58057],
+                                    [u'Thu', 38926, 62631]])
+
+        resp = self.client.get('/api/v1/presence_start_end/9000')
         self.assertEqual(resp.status_code, 404)
 
 

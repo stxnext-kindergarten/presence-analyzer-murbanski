@@ -6,7 +6,7 @@ Helper functions used in views.
 import csv
 from json import dumps
 from functools import wraps
-from datetime import datetime
+from datetime import datetime, time
 
 from flask import Response
 
@@ -82,6 +82,30 @@ def group_by_weekday(items):
         end = items[date]['end']
         result[date.weekday()].append(interval(start, end))
     return result
+
+
+def mean_start_end_by_weekday(items):
+    """
+    Calculate mean start-end times by weekday.
+    """
+
+    # [start, end, count] for every day in week
+    week_stats = [[0, 0, 0] for _ in range(7)]
+    for date, item in items.iteritems():
+        day_stats = week_stats[date.weekday()]
+        day_stats[0] += seconds_since_midnight(item['start'])
+        day_stats[1] += seconds_since_midnight(item['end'])
+        day_stats[2] += 1
+
+    results = []
+    for weekday, day_stats in enumerate(week_stats):
+        count = day_stats[2]
+        if count:
+            start = day_stats[0]/count
+            end = day_stats[1]/count
+            results.append([weekday, start, end])
+
+    return results
 
 
 def seconds_since_midnight(time):
