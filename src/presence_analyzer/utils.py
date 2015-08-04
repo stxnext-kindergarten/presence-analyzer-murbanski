@@ -63,10 +63,11 @@ def get_data():
                 date = datetime.strptime(row[1], '%Y-%m-%d').date()
                 start = datetime.strptime(row[2], '%H:%M:%S').time()
                 end = datetime.strptime(row[3], '%H:%M:%S').time()
+
+                data.setdefault(user_id, {})[date] = {'start': start,
+                                                      'end': end}
             except (ValueError, TypeError):
                 log.debug('Problem with line %d: ', i, exc_info=True)
-
-            data.setdefault(user_id, {})[date] = {'start': start, 'end': end}
 
     return data
 
