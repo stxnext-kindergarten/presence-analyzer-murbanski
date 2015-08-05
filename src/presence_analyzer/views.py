@@ -100,15 +100,24 @@ def presence_start_end_view(user_id):
 
 @app.route('/presence_weekday', methods=['GET'])
 def presence_weekday_renderer():
+    """
+    Renders and returns template for presence time of users.
+    """
     return render_template('presence_weekday.html')
 
 
 @app.route('/presence_start_end', methods=['GET'])
 def presence_start_end_renderer():
+    """
+    Renders and returns template for mean start-end time of users
+    """
     return render_template('presence_start_end.html')
 
 
 @app.route('/mean_time_weekday', methods=['GET'])
 def mean_time_weekday_renderer():
+    """
+    Renders and returns template for mean presence times of users
+    """
     return render_template('mean_time_weekday.html')
 
