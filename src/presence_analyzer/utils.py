@@ -4,6 +4,7 @@ Helper functions used in views.
 """
 
 import csv
+from lxml import etree
 from json import dumps
 from functools import wraps
 from datetime import datetime
@@ -68,6 +69,43 @@ def get_data():
                                                       'end': end}
             except (ValueError, TypeError):
                 log.debug('Problem with line %d: ', i, exc_info=True)
+
+    return data
+
+
+def get_user_data():
+    """
+    Extracts user data from XML file and groups it by user_id.
+
+    It creates structure like this:
+    data = {
+        'user_id': {
+            'avatar': '/api/images/users/user_id',
+            'name': 'User Name',
+        }
+    }
+    """
+    data = {}
+    with open(app.config['USERS_XML'], 'r') as xmlfile:
+        users_xml = etree.parse(xmlfile)
+        server_info = users_xml.getroot().find('server')
+        avatar_prefix = None
+        if server_info is not None:
+            host = server_info.find('host')
+            port = server_info.find('port')
+            protocol = server_info.find('protocol')
+            if None not in (host, port, protocol):
+                avatar_prefix = "%s://%s:%s" % (protocol.text, host.text,
+                                                port.text)
+
+        for user in users_xml.getroot().iter('user'):
+            user_id = int(user.get('id'))
+            avatar = user.find('avatar')
+            name = user.find('name')
+
+            data[user_id] = {'name': name.text}
+            if avatar_prefix and avatar is not None:
+                data[user_id]['avatar'] = avatar_prefix + avatar.text
 
     return data
 

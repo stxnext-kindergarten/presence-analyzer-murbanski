@@ -18,6 +18,9 @@ TEST_DATA_MANGLED_W_HEADER_CSV = os.path.join(
     os.path.dirname(__file__), '..', '..', 'runtime', 'data',
     'test_data_mangled_w_header.csv'
 )
+TEST_USERS_XML = os.path.join(
+    os.path.dirname(__file__), '..', '..', 'runtime', 'data', 'test_users.xml'
+)
 
 
 # pylint: disable=maybe-no-member, too-many-public-methods
@@ -31,6 +34,7 @@ class PresenceAnalyzerViewsTestCase(unittest.TestCase):
         Before each test, set up a environment.
         """
         main.app.config.update({'DATA_CSV': TEST_DATA_CSV})
+        main.app.config.update({'USERS_XML': TEST_USERS_XML})
         self.client = main.app.test_client()
 
     def tearDown(self):
@@ -135,6 +139,7 @@ class PresenceAnalyzerUtilsTestCase(unittest.TestCase):
         Before each test, set up a environment.
         """
         main.app.config.update({'DATA_CSV': TEST_DATA_CSV})
+        main.app.config.update({'USERS_XML': TEST_USERS_XML})
 
     def tearDown(self):
         """
@@ -172,6 +177,13 @@ class PresenceAnalyzerUtilsTestCase(unittest.TestCase):
             data[11][sample_date]['start'],
             datetime.time(9, 19, 50)
         )
+
+    def test_get_user_data(self):
+        """
+        Test parsing of user XML file.
+        """
+        data = utils.get_user_data()
+        self.assertIsInstance(data, dict)
 
 
 def suite():
