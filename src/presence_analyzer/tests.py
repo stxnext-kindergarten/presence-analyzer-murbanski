@@ -7,7 +7,8 @@ import json
 import datetime
 import unittest
 
-from presence_analyzer import main, views, utils  # pylint: disable=unused-import
+from presence_analyzer import main, utils
+from presence_analyzer import views  # pylint: disable=unused-import
 
 
 TEST_DATA_CSV = os.path.join(
