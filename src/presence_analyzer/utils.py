@@ -6,7 +6,7 @@ Helper functions used in views.
 import csv
 from json import dumps
 from functools import wraps
-from datetime import datetime, time
+from datetime import datetime
 
 from flask import Response
 

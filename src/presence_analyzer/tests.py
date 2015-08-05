@@ -67,9 +67,10 @@ class PresenceAnalyzerViewsTestCase(unittest.TestCase):
         self.assertEqual(resp.content_type, 'application/json')
         data = json.loads(resp.data)
         self.assertEqual(len(data), 7)
-        self.assertListEqual(filter(lambda d: d[1], data),
-                             [[u'Tue', 30047], [u'Wed', 24465],
-                              [u'Thu', 23705]])
+        self.assertListEqual(
+            [[day, interval] for day, interval in data if interval > 0],
+            [[u'Tue', 30047], [u'Wed', 24465], [u'Thu', 23705]]
+        )
 
         resp = self.client.get('api/v1/mean_time_weekday/9000')
         self.assertEqual(resp.status_code, 404)
@@ -83,9 +84,11 @@ class PresenceAnalyzerViewsTestCase(unittest.TestCase):
         self.assertEqual(resp.content_type, 'application/json')
         data = json.loads(resp.data)
         self.assertEqual(len(data), 7+1)
-        self.assertListEqual(filter(lambda d: d[1], data),
-                             [[u'Weekday', u'Presence (s)'], [u'Tue', 30047],
-                              [u'Wed', 24465], [u'Thu', 23705]])
+        self.assertListEqual(
+            [[day, interval] for day, interval in data if interval > 0],
+            [[u'Weekday', u'Presence (s)'], [u'Tue', 30047], [u'Wed', 24465],
+             [u'Thu', 23705]]
+        )
 
         resp = self.client.get('api/v1/presence_weekday/9000')
         self.assertEqual(resp.status_code, 404)
