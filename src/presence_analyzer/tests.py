@@ -14,6 +14,10 @@ from presence_analyzer import views  # pylint: disable=unused-import
 TEST_DATA_CSV = os.path.join(
     os.path.dirname(__file__), '..', '..', 'runtime', 'data', 'test_data.csv'
 )
+TEST_DATA_MANGLED_W_HEADER_CSV = os.path.join(
+    os.path.dirname(__file__), '..', '..', 'runtime', 'data',
+    'test_data_mangled_w_header.csv'
+)
 
 
 # pylint: disable=maybe-no-member, too-many-public-methods
@@ -54,6 +58,36 @@ class PresenceAnalyzerViewsTestCase(unittest.TestCase):
         self.assertEqual(len(data), 2)
         self.assertDictEqual(data[0], {u'user_id': 10, u'name': u'User 10'})
 
+    def test_mean_time_weekday(self):
+        """
+        Test mean time view.
+        """
+        resp = self.client.get('api/v1/mean_time_weekday/10')
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.content_type, 'application/json')
+        data = json.loads(resp.data)
+        self.assertEqual(len(data), 7)
+        self.assertListEqual(filter(lambda d: d[1], data),
+                             [[u'Tue', 30047], [u'Wed', 24465],
+                              [u'Thu', 23705]])
+        resp = self.client.get('api/v1/mean_time_weekday/9000')
+        self.assertEqual(resp.status_code, 404)
+
+    def test_presence_weekday(self):
+        """
+        Test presence weekday view.
+        """
+        resp = self.client.get('api/v1/presence_weekday/10')
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.content_type, 'application/json')
+        data = json.loads(resp.data)
+        self.assertEqual(len(data), 7+1)
+        self.assertListEqual(filter(lambda d: d[1], data),
+                             [[u'Weekday', u'Presence (s)'], [u'Tue', 30047],
+                              [u'Wed', 24465], [u'Thu', 23705]])
+        resp = self.client.get('api/v1/presence_weekday/9000')
+        self.assertEqual(resp.status_code, 404)
+
 
 class PresenceAnalyzerUtilsTestCase(unittest.TestCase):
     """
@@ -85,6 +119,22 @@ class PresenceAnalyzerUtilsTestCase(unittest.TestCase):
         self.assertEqual(
             data[10][sample_date]['start'],
             datetime.time(9, 39, 5)
+        )
+
+    def test_get_mangled_data(self):
+        """
+        Test parsing of mangled CSV file.
+        """
+        main.app.config.update({'DATA_CSV': TEST_DATA_MANGLED_W_HEADER_CSV})
+        data = utils.get_data()
+        self.assertIsInstance(data, dict)
+        self.assertItemsEqual(data.keys(), [11,])
+        sample_date = datetime.date(2013, 9, 10)
+        self.assertIn(sample_date, data[11])
+        self.assertItemsEqual(data[11][sample_date].keys(), ['start', 'end'])
+        self.assertEqual(
+            data[11][sample_date]['start'],
+            datetime.time(9, 19, 50)
         )
 
 
