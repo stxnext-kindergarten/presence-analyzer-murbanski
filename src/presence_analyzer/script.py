@@ -111,3 +111,16 @@ def run():
         _serve('stop', dry_run=dry_run)
 
     werkzeug.script.run()
+
+
+def fetch_users_file():
+    """
+    Fetch USERS_XML file from remote host.
+    """
+    import urllib
+    app = make_app()
+
+    users_xml = app.config['USERS_XML']
+    users_url = app.config['USERS_XML_URL']
+
+    urllib.urlretrieve(users_url, users_xml)

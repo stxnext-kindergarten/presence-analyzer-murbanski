@@ -13,6 +13,7 @@
 
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/users.js') }}"></script>
     {% block scripts %}{% endblock %}
 </head>
 
@@ -32,9 +33,12 @@
         <div id="content">
             <h2>{% block title %}Presence analyzer{% endblock %}</h2>
             <p>
-                <select id="user_id" style="display: none">
-                    <option value="">--</option>
-                </select>
+                <div id="user">
+                    <div id="user_avatar"></div>
+                    <select id="user_id" style="display: none">
+                        <option value="">--</option>
+                    </select>
+                </div>
                 <div id="chart_div" style="display: none">
                 </div>
                 <div id="loading">

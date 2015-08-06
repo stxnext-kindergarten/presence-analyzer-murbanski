@@ -18,6 +18,9 @@ TEST_DATA_MANGLED_W_HEADER_CSV = os.path.join(
     os.path.dirname(__file__), '..', '..', 'runtime', 'data',
     'test_data_mangled_w_header.csv'
 )
+TEST_USERS_XML = os.path.join(
+    os.path.dirname(__file__), '..', '..', 'runtime', 'data', 'test_users.xml'
+)
 
 
 # pylint: disable=maybe-no-member, too-many-public-methods
@@ -31,6 +34,7 @@ class PresenceAnalyzerViewsTestCase(unittest.TestCase):
         Before each test, set up a environment.
         """
         main.app.config.update({'DATA_CSV': TEST_DATA_CSV})
+        main.app.config.update({'USERS_XML': TEST_USERS_XML})
         self.client = main.app.test_client()
 
     def tearDown(self):
@@ -56,7 +60,10 @@ class PresenceAnalyzerViewsTestCase(unittest.TestCase):
         self.assertEqual(resp.content_type, 'application/json')
         data = json.loads(resp.data)
         self.assertEqual(len(data), 2)
-        self.assertDictEqual(data[0], {u'user_id': 10, u'name': u'User 10'})
+        self.assertDictEqual(
+            data[0],
+            {u'user_id': 10, u'name': u'Kowalski A.',
+             u'avatar': u'http://example.com:80/api/images/users/10'})
 
     def test_mean_time_weekday(self):
         """
@@ -135,6 +142,7 @@ class PresenceAnalyzerUtilsTestCase(unittest.TestCase):
         Before each test, set up a environment.
         """
         main.app.config.update({'DATA_CSV': TEST_DATA_CSV})
+        main.app.config.update({'USERS_XML': TEST_USERS_XML})
 
     def tearDown(self):
         """
@@ -164,7 +172,7 @@ class PresenceAnalyzerUtilsTestCase(unittest.TestCase):
         main.app.config.update({'DATA_CSV': TEST_DATA_MANGLED_W_HEADER_CSV})
         data = utils.get_data()
         self.assertIsInstance(data, dict)
-        self.assertItemsEqual(data.keys(), [11,])
+        self.assertItemsEqual(data.keys(), [11, ])
         sample_date = datetime.date(2013, 9, 10)
         self.assertIn(sample_date, data[11])
         self.assertItemsEqual(data[11][sample_date].keys(), ['start', 'end'])
@@ -172,6 +180,16 @@ class PresenceAnalyzerUtilsTestCase(unittest.TestCase):
             data[11][sample_date]['start'],
             datetime.time(9, 19, 50)
         )
+
+    def test_get_user_data(self):
+        """
+        Test parsing of user XML file.
+        """
+        data = utils.get_user_data()
+        self.assertIsInstance(data, dict)
+        self.assertItemsEqual(data.keys(), [10, 11, ])
+        self.assertIn('name', data[11])
+        self.assertEqual(data[11]['name'], u'Nowak B.')
 
 
 def suite():

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<intranet>
+    <server>
+        <host>example.com</host>
+        <port>80</port>
+        <protocol>http</protocol>
+    </server>
+    <users>
+        <user id="10">
+            <avatar>/api/images/users/10</avatar>
+            <name>Kowalski A.</name>
+        </user>
+        <user id="11">
+            <avatar>/api/images/users/11</avatar>
+            <name>Nowak B.</name>
+        </user>
+    </users>
+</intranet>
