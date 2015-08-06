@@ -197,6 +197,8 @@ class PresenceAnalyzerUtilsTestCase(unittest.TestCase):
         """
         Test caching.
         """
+        # pylint: disable=invalid-name
+        # pylint: disable=missing-docstring
 
         @utils.cache()
         def func(b, c=10):
@@ -212,7 +214,8 @@ class PresenceAnalyzerUtilsTestCase(unittest.TestCase):
         self.assertEqual(func(0, 0), 3)
 
         @utils.cache(copy=True)
-        def f(): return []
+        def f():
+            return []
         f().append('test')
         self.assertListEqual(f(), [])
 

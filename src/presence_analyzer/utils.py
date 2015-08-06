@@ -21,9 +21,22 @@ log = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
 
 def cache(duration=600, copy=False):
+    """
+    Cache decorator
+    :param duration: cache timeout in seconds
+    :param copy: should only deepcopies of function output be returned
+    :return: cache decorator
+    """
     def cache_decorator(func):
+        """
+        Cache decorator.
+        :return: cached function
+        """
 
         def cached_func(*args, **kwargs):
+            """
+            Cached function.
+            """
             call_signature = (func.__name__, args, frozenset(kwargs.items()))
             with cached_func.cache_lock:
                 hit = cached_func.cache.get(call_signature, None)
@@ -177,11 +190,11 @@ def mean_start_end_by_weekday(items):
     return results
 
 
-def seconds_since_midnight(time):
+def seconds_since_midnight(dtime):
     """
     Calculates amount of seconds since midnight.
     """
-    return time.hour * 3600 + time.minute * 60 + time.second
+    return dtime.hour * 3600 + dtime.minute * 60 + dtime.second
 
 
 def interval(start, end):
@@ -196,4 +209,3 @@ def mean(items):
     Calculates arithmetic mean. Returns zero for empty lists.
     """
     return float(sum(items)) / len(items) if len(items) > 0 else 0
-
