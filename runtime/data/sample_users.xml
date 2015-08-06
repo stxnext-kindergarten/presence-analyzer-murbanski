@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<intranet>
+    <server>
+        <host>example.com</host>
+        <port>80</port>
+        <protocol>http</protocol>
+    </server>
+    <users>
+        <user id="141">
+            <avatar>/images/141</avatar>
+            <name>Adam P.</name>
+        </user>
+        <user id="176">
+            <avatar>/images/176</avatar>
+            <name>Adrian K.</name>
+        </user>
+        <user id="170">
+            <avatar>/images/170</avatar>
+            <name>Agata J.</name>
+        </user>
+        <user id="26">
+            <avatar>/images/26</avatar>
+            <name>Andrzej S.</name>
+        </user>
+        <user id="165">
+            <avatar>/images/165</avatar>
+            <name>Ewa D.</name>
+        </user>
+        <user id="19">
+            <avatar>/images/19</avatar>
+            <name>Ewa K.</name>
+        </user>
+        <user id="36">
+            <avatar>/images/36</avatar>
+            <name>Ewa W.</name>
+        </user>
+        <user id="122">
+            <avatar>/images/122</avatar>
+            <name>Artur L.</name>
+        </user>
+        <user id="62">
+            <avatar>/images/62</avatar>
+            <name>Jan G.</name>
+        </user>
+        <user id="68">
+            <avatar>/images/68</avatar>
+            <name>Jan K.</name>
+        </user>
+        <user id="49">
+            <avatar>/images/49</avatar>
+            <name>Dariusz Ś.</name>
+        </user>
+        <user id="151">
+            <avatar>/images/151</avatar>
+            <name>Dawid J.</name>
+        </user>
+        <user id="149">
+            <avatar>/images/149</avatar>
+            <name>Dawid K.</name>
+        </user>
+        <user id="124">
+            <avatar>/images/124</avatar>
+            <name>Dawid Ż.</name>
+        </user>
+        <user id="155">
+            <avatar>/images/155</avatar>
+            <name>Filip K.</name>
+        </user>
+        <user id="64">
+            <avatar>/images/64</avatar>
+            <name>Jakub K.</name>
+        </user>
+        <user id="156">
+            <avatar>/images/156</avatar>
+            <name>Jarosław Ś.</name>
+        </user>
+        <user id="186">
+            <avatar>/images/186</avatar>
+            <name>Jan S.</name>
+        </user>
+        <user id="162">
+            <avatar>/images/162</avatar>
+            <name>JoEwa M.</name>
+        </user>
+        <user id="148">
+            <avatar>/images/148</avatar>
+            <name>Kacper K.</name>
+        </user>
+        <user id="130">
+            <avatar>/images/130</avatar>
+            <name>Kajetan O.</name>
+        </user>
+        <user id="16">
+            <avatar>/images/16</avatar>
+            <name>Tomek K.</name>
+        </user>
+        <user id="139">
+            <avatar>/images/139</avatar>
+            <name>Tomek M.</name>
+        </user>
+        <user id="67">
+            <avatar>/images/67</avatar>
+            <name>Tomek S.</name>
+        </user>
+        <user id="150">
+            <avatar>/images/150</avatar>
+            <name>Tomek Ż.</name>
+        </user>
+        <user id="167">
+            <avatar>/images/167</avatar>
+            <name>Karol W.</name>
+        </user>
+        <user id="175">
+            <avatar>/images/175</avatar>
+            <name>Klaudia P.</name>
+        </user>
+        <user id="54">
+            <avatar>/images/54</avatar>
+            <name>Konrad R.</name>
+        </user>
+        <user id="111">
+            <avatar>/images/111</avatar>
+            <name>Krzysztof D.</name>
+        </user>
+        <user id="183">
+            <avatar>/images/183</avatar>
+            <name>Krzysztof K.</name>
+        </user>
+        <user id="138">
+            <avatar>/images/138</avatar>
+            <name>Krzysztof K.</name>
+        </user>
+        <user id="48">
+            <avatar>/images/48</avatar>
+            <name>Krzysztof S.</name>
+        </user>
+        <user id="11">
+            <avatar>/images/11</avatar>
+            <name>Maciej D.</name>
+        </user>
+        <user id="101">
+            <avatar>/images/101</avatar>
+            <name>Maciej S.</name>
+        </user>
+        <user id="10">
+            <avatar>/images/10</avatar>
+            <name>Maciej Z.</name>
+        </user>
+        <user id="147">
+            <avatar>/images/147</avatar>
+            <name>Malwina N.</name>
+        </user>
+        <user id="184">
+            <avatar>/images/184</avatar>
+            <name>Malwina S.</name>
+        </user>
+        <user id="27">
+            <avatar>/images/27</avatar>
+            <name>Marcin N.</name>
+        </user>
+        <user id="178">
+            <avatar>/images/178</avatar>
+            <name>Marcin O.</name>
+        </user>
+        <user id="23">
+            <avatar>/images/23</avatar>
+            <name>Marek B.</name>
+        </user>
+        <user id="20">
+            <avatar>/images/20</avatar>
+            <name>Marek P.</name>
+        </user>
+        <user id="173">
+            <avatar>/images/173</avatar>
+            <name>Mariusz J.</name>
+        </user>
+        <user id="126">
+            <avatar>/images/126</avatar>
+            <name>Mariusz O.</name>
+        </user>
+        <user id="174">
+            <avatar>/images/174</avatar>
+            <name>Mariusz Z.</name>
+        </user>
+        <user id="152">
+            <avatar>/images/152</avatar>
+            <name>Mateusz G.</name>
+        </user>
+        <user id="63">
+            <avatar>/images/63</avatar>
+            <name>Mateusz K.</name>
+        </user>
+        <user id="187">
+            <avatar>/images/187</avatar>
+            <name>Mateusz T.</name>
+        </user>
+        <user id="153">
+            <avatar>/images/153</avatar>
+            <name>Michał J.</name>
+        </user>
+        <user id="179">
+            <avatar>/images/179</avatar>
+            <name>Michał K.</name>
+        </user>
+        <user id="142">
+            <avatar>/images/142</avatar>
+            <name>Michał K.</name>
+        </user>
+        <user id="131">
+            <avatar>/images/131</avatar>
+            <name>Michał K.</name>
+        </user>
+        <user id="159">
+            <avatar>/images/159</avatar>
+            <name>Michał R.</name>
+        </user>
+        <user id="24">
+            <avatar>/images/24</avatar>
+            <name>Miłosz Z.</name>
+        </user>
+        <user id="177">
+            <avatar>/images/177</avatar>
+            <name>Natalia Z.</name>
+        </user>
+        <user id="144">
+            <avatar>/images/144</avatar>
+            <name>Neysa K.</name>
+        </user>
+        <user id="160">
+            <avatar>/images/160</avatar>
+            <name>Olga K.</name>
+        </user>
+        <user id="83">
+            <avatar>/images/83</avatar>
+            <name>Oliwia G.</name>
+        </user>
+        <user id="12">
+            <avatar>/images/12</avatar>
+            <name>Patryk G.</name>
+        </user>
+        <user id="157">
+            <avatar>/images/157</avatar>
+            <name>Paweł K.</name>
+        </user>
+        <user id="66">
+            <avatar>/images/66</avatar>
+            <name>Paweł Ł.</name>
+        </user>
+        <user id="33">
+            <avatar>/images/33</avatar>
+            <name>Paweł M.</name>
+        </user>
+        <user id="158">
+            <avatar>/images/158</avatar>
+            <name>Piotr R.</name>
+        </user>
+        <user id="137">
+            <avatar>/images/137</avatar>
+            <name>Piotr R.</name>
+        </user>
+        <user id="84">
+            <avatar>/images/84</avatar>
+            <name>Przemysław K.</name>
+        </user>
+        <user id="25">
+            <avatar>/images/25</avatar>
+            <name>Radosław J.</name>
+        </user>
+        <user id="185">
+            <avatar>/images/185</avatar>
+            <name>Rafał G.</name>
+        </user>
+        <user id="112">
+            <avatar>/images/112</avatar>
+            <name>Roman L.</name>
+        </user>
+        <user id="169">
+            <avatar>/images/169</avatar>
+            <name>Sara C.</name>
+        </user>
+        <user id="29">
+            <avatar>/images/29</avatar>
+            <name>Sebastian K.</name>
+        </user>
+        <user id="171">
+            <avatar>/images/171</avatar>
+            <name>Sławomir P.</name>
+        </user>
+        <user id="115">
+            <avatar>/images/115</avatar>
+            <name>Szymon Ł.</name>
+        </user>
+        <user id="22">
+            <avatar>/images/22</avatar>
+            <name>Szymon P.</name>
+        </user>
+        <user id="58">
+            <avatar>/images/58</avatar>
+            <name>Tomasz L.</name>
+        </user>
+        <user id="13">
+            <avatar>/images/13</avatar>
+            <name>Tomasz M.</name>
+        </user>
+        <user id="118">
+            <avatar>/images/118</avatar>
+            <name>Tomasz M.</name>
+        </user>
+        <user id="17">
+            <avatar>/images/17</avatar>
+            <name>Tomasz S.</name>
+        </user>
+        <user id="166">
+            <avatar>/images/166</avatar>
+            <name>Tomasz W.</name>
+        </user>
+        <user id="146">
+            <avatar>/images/146</avatar>
+            <name>Waldemar S.</name>
+        </user>
+        <user id="15">
+            <avatar>/images/15</avatar>
+            <name>Wojciech L.</name>
+        </user>
+        <user id="121">
+            <avatar>/images/121</avatar>
+            <name>Łukasz J.</name>
+        </user>
+        <user id="154">
+            <avatar>/images/154</avatar>
+            <name>Łukasz K.</name>
+        </user>
+        <user id="189">
+            <avatar>/images/189</avatar>
+            <name>Karol Ż.</name>
+        </user>
+    </users>
+</intranet>

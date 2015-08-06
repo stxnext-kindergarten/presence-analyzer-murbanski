@@ -9,7 +9,8 @@ from flask import render_template
 from flask import url_for
 
 from presence_analyzer.main import app
-from presence_analyzer.utils import jsonify, get_data, mean, group_by_weekday,\
+from presence_analyzer.utils import jsonify, get_data, get_user_data
+from presence_analyzer.utils import mean, group_by_weekday, \
     mean_start_end_by_weekday
 
 import logging
@@ -31,8 +32,11 @@ def users_view():
     Users listing for dropdown.
     """
     data = get_data()
+    users = get_user_data()
     return [
-        {'user_id': i, 'name': 'User {0}'.format(str(i))}
+        {'user_id': i,
+         'name': users[i]['name'] if i in users else 'User {0}'.format(str(i)),
+         'avatar': users[i]['avatar'] if i in users else ''}
         for i in data.keys()
     ]
 

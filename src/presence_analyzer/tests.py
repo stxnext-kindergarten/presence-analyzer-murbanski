@@ -60,7 +60,10 @@ class PresenceAnalyzerViewsTestCase(unittest.TestCase):
         self.assertEqual(resp.content_type, 'application/json')
         data = json.loads(resp.data)
         self.assertEqual(len(data), 2)
-        self.assertDictEqual(data[0], {u'user_id': 10, u'name': u'User 10'})
+        self.assertDictEqual(
+            data[0],
+            {u'user_id': 10, u'name': u'Kowalski A.',
+             u'avatar': u'http://example.com:80/api/images/users/10'})
 
     def test_mean_time_weekday(self):
         """
@@ -184,6 +187,9 @@ class PresenceAnalyzerUtilsTestCase(unittest.TestCase):
         """
         data = utils.get_user_data()
         self.assertIsInstance(data, dict)
+        self.assertItemsEqual(data.keys(), [10, 11, ])
+        self.assertIn('name', data[11])
+        self.assertEqual(data[11]['name'], u'Nowak B.')
 
 
 def suite():
