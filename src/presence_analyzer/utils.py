@@ -8,6 +8,9 @@ from lxml import etree
 from json import dumps
 from functools import wraps
 from datetime import datetime
+from threading import Lock
+from copy import deepcopy
+from time import time
 
 from flask import Response
 
@@ -15,6 +18,33 @@ from presence_analyzer.main import app
 
 import logging
 log = logging.getLogger(__name__)  # pylint: disable=invalid-name
+
+
+def cache(duration=600, copy=False):
+    def cache_decorator(func):
+
+        def cached_func(*args, **kwargs):
+            call_signature = (func.__name__, args, frozenset(kwargs.items()))
+            with cached_func.cache_lock:
+                hit = cached_func.cache.get(call_signature, None)
+                if hit is None or hit[1] < time()-cached_func.cache_duration:
+                    ret = func(*args, **kwargs)
+                    cached_func.cache[call_signature] = (ret, time())
+                else:
+                    ret = hit[0]
+
+                if cached_func.cache_copy is True:
+                    ret = deepcopy(ret)
+            return ret
+
+        cached_func.cache = dict()
+        cached_func.cache_lock = Lock()
+        cached_func.cache_copy = copy
+        cached_func.cache_duration = duration
+
+        return cached_func
+
+    return cache_decorator
 
 
 def jsonify(function):
@@ -33,6 +63,7 @@ def jsonify(function):
     return inner
 
 
+@cache(600)
 def get_data():
     """
     Extracts presence data from CSV file and groups it by user_id.
@@ -165,3 +196,4 @@ def mean(items):
     Calculates arithmetic mean. Returns zero for empty lists.
     """
     return float(sum(items)) / len(items) if len(items) > 0 else 0
+
