@@ -88,20 +88,20 @@ def get_user_data():
     data = {}
     with open(app.config['USERS_XML'], 'r') as xmlfile:
         users_xml = etree.parse(xmlfile)
-        server_info = users_xml.getroot().find('server')
+        server_info = users_xml.find('/server')
         avatar_prefix = None
         if server_info is not None:
-            host = server_info.find('host')
-            port = server_info.find('port')
-            protocol = server_info.find('protocol')
+            host = server_info.find('./host')
+            port = server_info.find('./port')
+            protocol = server_info.find('./protocol')
             if None not in (host, port, protocol):
                 avatar_prefix = "%s://%s:%s" % (protocol.text, host.text,
                                                 port.text)
 
-        for user in users_xml.getroot().iter('user'):
+        for user in users_xml.find('/users').iterchildren('user'):
             user_id = int(user.get('id'))
-            avatar = user.find('avatar')
-            name = user.find('name')
+            avatar = user.find('./avatar')
+            name = user.find('./name')
 
             data[user_id] = {'name': name.text}
             if avatar_prefix and avatar is not None:

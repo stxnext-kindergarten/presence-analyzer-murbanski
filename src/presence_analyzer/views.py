@@ -120,4 +120,3 @@ def mean_time_weekday_renderer():
     Renders and returns template for mean presence times of users
     """
     return render_template('mean_time_weekday.html')
-

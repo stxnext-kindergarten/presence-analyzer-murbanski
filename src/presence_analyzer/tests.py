@@ -169,7 +169,7 @@ class PresenceAnalyzerUtilsTestCase(unittest.TestCase):
         main.app.config.update({'DATA_CSV': TEST_DATA_MANGLED_W_HEADER_CSV})
         data = utils.get_data()
         self.assertIsInstance(data, dict)
-        self.assertItemsEqual(data.keys(), [11,])
+        self.assertItemsEqual(data.keys(), [11, ])
         sample_date = datetime.date(2013, 9, 10)
         self.assertIn(sample_date, data[11])
         self.assertItemsEqual(data[11][sample_date].keys(), ['start', 'end'])
