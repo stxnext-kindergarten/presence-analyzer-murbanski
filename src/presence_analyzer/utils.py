@@ -8,6 +8,9 @@ from lxml import etree
 from json import dumps
 from functools import wraps
 from datetime import datetime
+from threading import Lock
+from copy import deepcopy
+from time import time
 
 from flask import Response
 
@@ -15,6 +18,46 @@ from presence_analyzer.main import app
 
 import logging
 log = logging.getLogger(__name__)  # pylint: disable=invalid-name
+
+
+def cache(duration=600, copy=False):
+    """
+    Cache decorator
+    :param duration: cache timeout in seconds
+    :param copy: should only deepcopies of function output be returned
+    :return: cache decorator
+    """
+    def cache_decorator(func):
+        """
+        Cache decorator.
+        :return: cached function
+        """
+
+        def cached_func(*args, **kwargs):
+            """
+            Cached function.
+            """
+            call_signature = (func.__name__, args, frozenset(kwargs.items()))
+            with cached_func.cache_lock:
+                hit = cached_func.cache.get(call_signature, None)
+                if hit is None or hit[1] < time()-cached_func.cache_duration:
+                    ret = func(*args, **kwargs)
+                    cached_func.cache[call_signature] = (ret, time())
+                else:
+                    ret = hit[0]
+
+                if cached_func.cache_copy is True:
+                    ret = deepcopy(ret)
+            return ret
+
+        cached_func.cache = dict()
+        cached_func.cache_lock = Lock()
+        cached_func.cache_copy = copy
+        cached_func.cache_duration = duration
+
+        return cached_func
+
+    return cache_decorator
 
 
 def jsonify(function):
@@ -33,6 +76,7 @@ def jsonify(function):
     return inner
 
 
+@cache(600)
 def get_data():
     """
     Extracts presence data from CSV file and groups it by user_id.
@@ -146,11 +190,11 @@ def mean_start_end_by_weekday(items):
     return results
 
 
-def seconds_since_midnight(time):
+def seconds_since_midnight(dtime):
     """
     Calculates amount of seconds since midnight.
     """
-    return time.hour * 3600 + time.minute * 60 + time.second
+    return dtime.hour * 3600 + dtime.minute * 60 + dtime.second
 
 
 def interval(start, end):

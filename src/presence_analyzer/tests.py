@@ -35,6 +35,7 @@ class PresenceAnalyzerViewsTestCase(unittest.TestCase):
         """
         main.app.config.update({'DATA_CSV': TEST_DATA_CSV})
         main.app.config.update({'USERS_XML': TEST_USERS_XML})
+        utils.get_data.cache_duration = -1
         self.client = main.app.test_client()
 
     def tearDown(self):
@@ -143,6 +144,7 @@ class PresenceAnalyzerUtilsTestCase(unittest.TestCase):
         """
         main.app.config.update({'DATA_CSV': TEST_DATA_CSV})
         main.app.config.update({'USERS_XML': TEST_USERS_XML})
+        utils.get_data.cache_duration = -1
 
     def tearDown(self):
         """
@@ -190,6 +192,32 @@ class PresenceAnalyzerUtilsTestCase(unittest.TestCase):
         self.assertItemsEqual(data.keys(), [10, 11, ])
         self.assertIn('name', data[11])
         self.assertEqual(data[11]['name'], u'Nowak B.')
+
+    def test_cache(self):
+        """
+        Test caching.
+        """
+        # pylint: disable=invalid-name
+        # pylint: disable=missing-docstring
+
+        @utils.cache()
+        def func(b, c=10):
+            func.a += 1
+            return func.a+b+c
+        func.a = 0
+
+        self.assertEqual(func(-1), 10)
+        self.assertEqual(func(-1), func(-1))
+        self.assertEqual(func(-1), func(-1))
+        func.cache_duration = -1
+        self.assertEqual(func(-1), 11)
+        self.assertEqual(func(0, 0), 3)
+
+        @utils.cache(copy=True)
+        def f():
+            return []
+        f().append('test')
+        self.assertListEqual(f(), [])
 
 
 def suite():
